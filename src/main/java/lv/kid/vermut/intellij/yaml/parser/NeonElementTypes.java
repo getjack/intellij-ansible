@@ -1,9 +1,7 @@
 package lv.kid.vermut.intellij.yaml.parser;
 
 import com.intellij.psi.tree.IFileElementType;
-import com.intellij.psi.tree.TokenSet;
 import lv.kid.vermut.intellij.yaml.YamlLanguage;
-import lv.kid.vermut.intellij.yaml.lexer.NeonTokenTypes;
 
 /**
  * Types of elements returned from parser

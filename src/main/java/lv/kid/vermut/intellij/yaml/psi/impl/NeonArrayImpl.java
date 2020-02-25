@@ -42,7 +42,7 @@ public class NeonArrayImpl extends NeonPsiElementImpl implements NeonArray {
 
 	@Override
 	public List<NeonValue> getValues() {
-		ArrayList<NeonValue> result = new ArrayList<NeonValue>();
+		ArrayList<NeonValue> result = new ArrayList<>();
 
 		// TODO
 
@@ -51,7 +51,7 @@ public class NeonArrayImpl extends NeonPsiElementImpl implements NeonArray {
 
 	@Override
 	public List<NeonKey> getKeys() {
-		ArrayList<NeonKey> result = new ArrayList<NeonKey>();
+		ArrayList<NeonKey> result = new ArrayList<>();
 
 		// TODO
 
@@ -60,7 +60,7 @@ public class NeonArrayImpl extends NeonPsiElementImpl implements NeonArray {
 
 	@Override
 	public HashMap<String, NeonValue> getMap() {
-		HashMap<String, NeonValue> result = new HashMap<String, NeonValue>();
+		HashMap<String, NeonValue> result = new HashMap<>();
 
 		// TODO
 

@@ -13,13 +13,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-/*
-import com.jetbrains.php.PhpIndex;
-import com.jetbrains.php.lang.documentation.phpdoc.psi.impl.PhpDocPropertyImpl;
-import com.jetbrains.php.lang.psi.elements.Field;
-import com.jetbrains.php.lang.psi.elements.PhpClass;
-*/
-
 /**
  * Complete keywords
  */
@@ -48,29 +41,13 @@ public class ServiceCompletionProvider extends CompletionProvider<CompletionPara
 	 * Find all available services
 	 */
 	private List<String> getAvailableServices() {
-		List<String> services = new LinkedList<String>();
-
-		getAvailableServicesFromSystemContainer(services);
+		List<String> services = new LinkedList<>();
 
 		if (curr.getContainingFile() instanceof NeonFile) getServicesFromNeonFile(services, (NeonFile) curr.getContainingFile());
 
 		return services;
 	}
 
-
-	/**
-	 * Scans class SystemContainer to find all services in it
-	 */
-	private void getAvailableServicesFromSystemContainer(List<String> result) {
-/*		PhpClass container = PhpIndex.getInstance(curr.getProject()).getClassByName("SystemContainer");
-		if (container != null) {
-			for (Field field : container.getFields()) {
-				if (field instanceof PhpDocPropertyImpl) {
-					result.add( field.getName() );
-				}
-			}
-		}*/
-	}
 
 	/**
 	 *

@@ -19,6 +19,9 @@ import static lv.kid.vermut.intellij.yaml.reference.AnsibleReferenceContributor.
  * Created by Pavels.Veretennikovs on 2015.05.22..
  */
 public class AnsibleVariableValuesDocumentationProvider extends AbstractDocumentationProvider {
+    // TODO: Provide as project configuration
+    private final String ANSIBLE_VERSION = "latest";
+
     @Nullable
     public String getQuickNavigateInfo(PsiElement element, PsiElement originalElement) {
         if (jinjaRefPattern().accepts(originalElement)) {
@@ -38,10 +41,10 @@ public class AnsibleVariableValuesDocumentationProvider extends AbstractDocument
 
         // Try documentation lookup for key
         if (psiElement(NeonKeyValPair.class).accepts(originalElement)) {
-            String url = MessageFormat.format("http://docs.ansible.com/{0}_module.html", ((NeonKeyValPair) originalElement).getKeyText());
+            String url = MessageFormat.format("https://docs.ansible.com/ansible/" + ANSIBLE_VERSION + "/modules/{0}_module.html", ((NeonKeyValPair) originalElement).getKeyText());
             try {
                 String pageData = new Scanner(new URL(url).openStream(), "UTF-8").useDelimiter("\\A").next();
-                return pageData.substring(pageData.indexOf("<div id=\"page-content\">"));
+                return pageData.substring(pageData.indexOf("<div role=\"main\" class=\"document\" itemscope=\"itemscope\" itemtype=\"http://schema.org/Article\">"));
             } catch (IOException e) {
                 return null;
             }

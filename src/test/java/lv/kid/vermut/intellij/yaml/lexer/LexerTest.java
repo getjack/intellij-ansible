@@ -25,7 +25,7 @@ public class LexerTest extends UsefulTestCase {
         return new NeonLexer();
     }
 
-    /*** helpers ***/
+    /** helpers ***/
 
     /**
      * Test that lexing a given piece of code will give particular tokens
@@ -44,7 +44,7 @@ public class LexerTest extends UsefulTestCase {
         while (lexer.getTokenType() != null) {
             if (idx >= expectedTokens.length) fail("Too many tokens from lexer; unexpected " + lexer.getTokenType());
 
-            Pair expected = expectedTokens[idx++];
+            Pair<IElementType, String> expected = expectedTokens[idx++];
 
             String tokenText = lexer.getBufferSequence().subSequence(lexer.getTokenStart(), lexer.getTokenEnd()).toString();
             assertEquals(expected.snd, tokenText);

@@ -27,7 +27,7 @@ public class AnsibleUtil {
     public static final String ALL = ".*";
 
     public static List<String> findRoleNames(Project project, String key) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         Collection<PsiFile> virtualFiles = findFiles(project, "/" + key + "/tasks/main.yml$");
         for (PsiFile virtualFile : virtualFiles) {
             result.add(virtualFile.getParent().getParent().getName());
@@ -48,7 +48,7 @@ public class AnsibleUtil {
 
     public static List<NeonKey> findAllProperties(Project project, String key) {
         List<NeonKeyValPair> names = searchKeyPairs(project, key, null);
-        List<NeonKey> result = new ArrayList<NeonKey>();
+        List<NeonKey> result = new ArrayList<>();
         for (NeonKeyValPair name : names) {
             result.add(name.getKey());
         }
@@ -61,7 +61,7 @@ public class AnsibleUtil {
 
     public static List<NeonValue> findNames(Project project, String key) {
         List<NeonKeyValPair> names = searchKeyPairs(project, "name", key);
-        List<NeonValue> result = new ArrayList<NeonValue>();
+        List<NeonValue> result = new ArrayList<>();
         for (NeonKeyValPair name : names) {
             result.add(name.getValue());
         }
@@ -69,7 +69,7 @@ public class AnsibleUtil {
     }
 
     public static List<PsiFile> findFiles(Project project, String pattern) {
-        List<PsiFile> result = new ArrayList<PsiFile>();
+        List<PsiFile> result = new ArrayList<>();
         try {
             Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME, YamlFileType.INSTANCE,
                     GlobalSearchScope.allScope(project));
@@ -94,7 +94,7 @@ public class AnsibleUtil {
     }
 
     private static List<NeonKeyValPair> searchKeyPairs(Project project, String key, String value) {
-        List<NeonKeyValPair> result = new ArrayList<NeonKeyValPair>();
+        List<NeonKeyValPair> result = new ArrayList<>();
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME, YamlFileType.INSTANCE,
                 GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {

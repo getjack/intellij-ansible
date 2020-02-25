@@ -26,7 +26,7 @@ public class NeonStructureViewElement extends PsiTreeElementBase<PsiElement> {
 	@NotNull
 	@Override
 	public Collection<StructureViewTreeElement> getChildrenBase() {
-		List<StructureViewTreeElement> elements = new ArrayList<StructureViewTreeElement>();
+		List<StructureViewTreeElement> elements = new ArrayList<>();
 		PsiElement element = getElement();
 
 		if (element instanceof NeonFile) {

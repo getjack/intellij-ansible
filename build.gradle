@@ -7,35 +7,45 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.2.11"
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.16'
 }
 
+group 'lv.kid.vermut.intellij'
+version = '0.10.0'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
-apply plugin: 'java'
-sourceCompatibility = 1.6
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+    gradleVersion = '4.8.1'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
 }
 
 intellij {
     pluginName 'intellij-ansible'
+    version '2019.3.3'
+    type 'IC'
     updateSinceUntilBuild false
-    type "IC"
-    version '14.1.2'
+    plugins 'yaml'
 }
-
-group 'lv.kid.vermut.intellij'
-version = '0.9.5'
 
 patchPluginXml {
     version project['version']
 }
 
-publishPlugin {
-    apply from: "jetbrains.account"
-}
+//publishPlugin {
+//    apply from: "jetbrains.account"
+//}
 
 repositories {
     mavenCentral()
@@ -43,7 +53,6 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile files(Jvm.current().toolsJar)
 }
 
 // To make IDEA classes available in editor

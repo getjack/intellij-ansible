@@ -15,12 +15,12 @@ import java.util.Set;
  */
 public class NeonHighlightingLexer extends LookAheadLexer {
 
-	private static final Set<String> KEYWORDS = new HashSet<String>(Arrays.asList(
-		new String[]{
-			"true", "True", "TRUE", "yes", "Yes", "YES", "on", "On", "ON",
-			"false", "False", "FALSE", "no", "No", "NO", "off", "Off", "OFF",
-			"null", "Null", "NULL"
-		}
+	private static final Set<String> KEYWORDS = new HashSet<>(Arrays.asList(
+			new String[]{
+					"true", "True", "TRUE", "yes", "Yes", "YES", "on", "On", "ON",
+					"false", "False", "FALSE", "no", "No", "NO", "off", "Off", "OFF",
+					"null", "Null", "NULL"
+			}
 	));
 
 	public NeonHighlightingLexer(Lexer baseLexer) {

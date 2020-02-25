@@ -29,7 +29,7 @@ public class _NeonLexer implements FlexLexer {
    *                  at the beginning of a line
    * l is of the form l = 2*k, k a non negative integer
    */
-  private static final int ZZ_LEXSTATE[] = { 
+  private static final int[] ZZ_LEXSTATE = {
      0,  1,  2,  2,  3,  3,  4, 4
   };
 
@@ -305,7 +305,7 @@ public class _NeonLexer implements FlexLexer {
   private static java.io.Reader zzReader = null; // Fake
 
   /* error messages for the codes above */
-  private static final String ZZ_ERROR_MSG[] = {
+  private static final String[] ZZ_ERROR_MSG = {
     "Unkown internal scanner error",
     "Error: could not match input",
     "Error: pushback value was too large"

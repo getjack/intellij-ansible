@@ -30,11 +30,11 @@ public class AnsibleRoleReference extends PsiReferenceBase<PsiElement> implement
     public ResolveResult[] multiResolve(boolean incompleteCode) {
         Project project = myElement.getProject();
         final List<PsiFile> properties = AnsibleUtil.findRoles(project, key);
-        List<ResolveResult> results = new ArrayList<ResolveResult>();
+        List<ResolveResult> results = new ArrayList<>();
         for (PsiFile property : properties) {
             results.add(new PsiElementResolveResult(property));
         }
-        return results.toArray(new ResolveResult[results.size()]);
+        return results.toArray(new ResolveResult[0]);
     }
 
     @Nullable

@@ -32,9 +32,6 @@ public class NeonSyntaxHighlighter extends SyntaxHighlighterBase {
 	public static final String            INTERPUNCTION_ID = "Interpunction";
 	public static final TextAttributesKey INTERPUNCTION    = TextAttributesKey.createTextAttributesKey(INTERPUNCTION_ID, DefaultLanguageHighlighterColors.DOT);
 
-	public static final String            NUMBER_ID        = "Number";
-	public static final TextAttributesKey NUMBER           = TextAttributesKey.createTextAttributesKey(NUMBER_ID, DefaultLanguageHighlighterColors.NUMBER);
-
 	public static final String            KEYWORD_ID       = "Keyword";
 	public static final TextAttributesKey KEYWORD          = TextAttributesKey.createTextAttributesKey(KEYWORD_ID, DefaultLanguageHighlighterColors.KEYWORD);
 
@@ -63,7 +60,7 @@ public class NeonSyntaxHighlighter extends SyntaxHighlighterBase {
 
 
 	// Static container
-	private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<IElementType, TextAttributesKey>();
+	private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<>();
 
 
 	// Fill in the map

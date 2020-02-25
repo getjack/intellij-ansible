@@ -20,7 +20,6 @@ public class NeonColorsPage implements ColorSettingsPage {
 			new AttributesDescriptor("Comment",       NeonSyntaxHighlighter.COMMENT),
 			new AttributesDescriptor("Identifier",    NeonSyntaxHighlighter.IDENTIFIER),
 			new AttributesDescriptor("Sign: brace, comma, etc", NeonSyntaxHighlighter.INTERPUNCTION),
-			new AttributesDescriptor("Number",        NeonSyntaxHighlighter.NUMBER),
 			new AttributesDescriptor("Keyword",       NeonSyntaxHighlighter.KEYWORD),
 			new AttributesDescriptor("String",        NeonSyntaxHighlighter.STRING),
 			new AttributesDescriptor("Tag",           NeonSyntaxHighlighter.TAG),

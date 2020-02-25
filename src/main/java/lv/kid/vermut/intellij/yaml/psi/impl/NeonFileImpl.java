@@ -37,7 +37,7 @@ public class NeonFileImpl extends PsiFileBase implements NeonFile {
     }
 
     public HashMap<String, NeonSection> getSections() {
-        HashMap<String, NeonSection> ret = new HashMap<String, NeonSection>();
+        HashMap<String, NeonSection> ret = new HashMap<>();
 
         for (ASTNode node : getNode().getChildren(TokenSet.create(NeonElementTypes.KEY_VALUE_PAIR))) {
             NeonSection section = (NeonSection) node.getPsi();

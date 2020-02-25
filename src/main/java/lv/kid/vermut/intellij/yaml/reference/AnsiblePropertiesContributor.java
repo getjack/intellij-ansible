@@ -19,7 +19,7 @@ public class AnsiblePropertiesContributor implements ChooseByNameContributor {
     @Override
     public String[] getNames(Project project, boolean includeNonProjectItems) {
         List<NeonKeyValPair> properties = AnsibleUtil.findAllProperties(project);
-        List<String> names = new ArrayList<String>(properties.size());
+        List<String> names = new ArrayList<>(properties.size());
         for (NeonKeyValPair property : properties) {
             if (property.getKeyText() != null && property.getKeyText().length() > 0) {
                 names.add(property.getKeyText());
@@ -33,6 +33,6 @@ public class AnsiblePropertiesContributor implements ChooseByNameContributor {
     public NavigationItem[] getItemsByName(String name, String pattern, Project project, boolean includeNonProjectItems) {
         // todo include non project items
         List<NeonKey> properties = AnsibleUtil.findAllProperties(project, name);
-        return properties.toArray(new NavigationItem[properties.size()]);
+        return properties.toArray(new NavigationItem[0]);
     }
 }

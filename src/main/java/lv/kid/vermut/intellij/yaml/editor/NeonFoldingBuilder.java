@@ -28,9 +28,9 @@ public class NeonFoldingBuilder implements FoldingBuilder, NeonTokenTypes
 
 	@NotNull
 	public FoldingDescriptor[] buildFoldRegions(@NotNull ASTNode astNode, @NotNull Document document) {
-		List descriptors = new LinkedList();
+		List<FoldingDescriptor> descriptors = new LinkedList<>();
 		collectDescriptors(astNode, descriptors);
-		return (FoldingDescriptor[]) descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
+		return descriptors.toArray(new FoldingDescriptor[0]);
 	}
 
 	@Nullable

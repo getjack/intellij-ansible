@@ -29,11 +29,11 @@ public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> imple
     public ResolveResult[] multiResolve(boolean incompleteCode) {
         Project project = myElement.getProject();
         final List<NeonKey> properties = AnsibleUtil.findAllProperties(project, key);
-        List<ResolveResult> results = new ArrayList<ResolveResult>();
+        List<ResolveResult> results = new ArrayList<>();
         for (NeonKey property : properties) {
             results.add(new PsiElementResolveResult(property));
         }
-        return results.toArray(new ResolveResult[results.size()]);
+        return results.toArray(new ResolveResult[0]);
     }
 
     @Nullable
@@ -48,7 +48,7 @@ public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> imple
     public Object[] getVariants() {
         Project project = myElement.getProject();
         final List<NeonKeyValPair> properties = AnsibleUtil.findAllProperties(project);
-        List<LookupElement> variants = new ArrayList<LookupElement>();
+        List<LookupElement> variants = new ArrayList<>();
         for (final NeonKeyValPair property : properties) {
             if (property.getKey() != null && property.getKeyText().length() > 0) {
                 variants.add(LookupElementBuilder.create(property).

@@ -33,7 +33,7 @@ public class NeonEntityImpl extends NeonPsiElementImpl implements NeonEntity {
 
     @Override
     public NeonArray getArgs() {
-        ASTNode children[] = getNode().getChildren(TokenSet.create(NeonTokenTypes.NEON_LITERAL));
+        ASTNode[] children = getNode().getChildren(TokenSet.create(NeonTokenTypes.NEON_LITERAL));
         if (children.length > 0) return (NeonArray) children[0].getPsi(); // should be hash I guess
         else return null;
     }

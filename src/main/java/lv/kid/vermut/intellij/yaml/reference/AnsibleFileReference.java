@@ -21,8 +21,7 @@ public class AnsibleFileReference extends PsiReferenceBase<PsiElement> implement
         super(element, rangeInElement);
         key = element.getText(); // .substring(rangeInElement.getStartOffset(), rangeInElement.getEndOffset());
         // QUICK-HACK to fix the key containing linebreaks and comments - better would be to fix the parser/lexer
-        String stripped = key.replaceAll("(?m)(#.*$|\\s*$)\\n","");
-        key = stripped;
+        key = key.replaceAll("(?m)(#.*$|\\s*$)\\n","");
     }
 
     @NotNull
@@ -30,11 +29,11 @@ public class AnsibleFileReference extends PsiReferenceBase<PsiElement> implement
     public ResolveResult[] multiResolve(boolean incompleteCode) {
         Project project = myElement.getProject();
         final List<PsiFile> properties = AnsibleUtil.findFiles(project, "/" + key);
-        List<ResolveResult> results = new ArrayList<ResolveResult>();
+        List<ResolveResult> results = new ArrayList<>();
         for (PsiFile property : properties) {
             results.add(new PsiElementResolveResult(property));
         }
-        return results.toArray(new ResolveResult[results.size()]);
+        return results.toArray(new ResolveResult[0]);
     }
 
     @Nullable
@@ -71,7 +70,7 @@ public class AnsibleFileReference extends PsiReferenceBase<PsiElement> implement
     public Object[] getVariants() {
         Project project = myElement.getProject();
         final List<PsiFile> properties = AnsibleUtil.findFiles(project, "/" + key);
-        List<LookupElementBuilder> variants = new ArrayList<LookupElementBuilder>();
+        List<LookupElementBuilder> variants = new ArrayList<>();
         for (PsiFile property : properties) {
             variants.add(LookupElementBuilder.create(property).
                     withIcon(YamlIcons.FILETYPE_ICON).

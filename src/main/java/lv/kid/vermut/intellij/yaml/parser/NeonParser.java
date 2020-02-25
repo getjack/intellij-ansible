@@ -24,7 +24,7 @@ public class NeonParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
     private boolean myHasTabs = false; // FIXME: use this
     private PsiBuilder.Marker myAfterLastEolMarker;
     private int myInline;
-    private Stack<IElementType> expectedClosings = new Stack<IElementType>();
+    private Stack<IElementType> expectedClosings = new Stack<>();
     private IndentType myIndentType;
 
 
@@ -107,8 +107,6 @@ public class NeonParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
 
             val.done(ARRAY);
 
-        } else if (currentToken == NEON_INDENT) {
-            // no value -> null
         } else {
             // dunno
             myBuilder.error("unexpected token " + currentToken);
@@ -268,9 +266,8 @@ public class NeonParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
                 PsiBuilder.Marker val = mark();
                 parseArray(myIndent);
                 val.done(ARRAY);
-            } else {
-                // myBuilder.error("value missing"); // actually not an error, but null
-            }
+            }  // myBuilder.error("value missing"); // actually not an error, but null
+
         } else {
             parseValue(indent, false);
         }
@@ -287,7 +284,7 @@ public class NeonParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
     }
 
 
-    /***  helpers ***/
+    /**  helpers ***/
 
     /**
      * Go to next token; if there is more whitespace, skip to the last

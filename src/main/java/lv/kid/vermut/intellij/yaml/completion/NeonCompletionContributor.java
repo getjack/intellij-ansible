@@ -16,9 +16,7 @@ import java.util.List;
  */
 public class NeonCompletionContributor extends CompletionContributor {
     public NeonCompletionContributor() {
-        // extend(CompletionType.BASIC, StandardPatterns.instanceOf(PsiElement.class), new KeywordCompletionProvider());
         extend(CompletionType.BASIC, StandardPatterns.instanceOf(PsiElement.class), new ServiceCompletionProvider());
-        // extend(CompletionType.BASIC, StandardPatterns.instanceOf(PsiElement.class), new ClassCompletionProvider());
 
         extend(CompletionType.BASIC,
                 AnsibleReferenceContributor.roleRefPattern(),
