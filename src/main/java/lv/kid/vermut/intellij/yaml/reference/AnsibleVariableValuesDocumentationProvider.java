@@ -14,23 +14,20 @@ import java.util.Scanner;
 import static com.intellij.patterns.PlatformPatterns.psiElement;
 import static lv.kid.vermut.intellij.yaml.reference.AnsibleReferenceContributor.jinjaRefPattern;
 
-/**
- * Created by Pavels.Veretennikovs on 2015.05.22..
- */
 public class AnsibleVariableValuesDocumentationProvider extends AbstractDocumentationProvider {
     // TODO: Provide as project configuration
     private final String ANSIBLE_VERSION = "latest";
 
     @Nullable
-    public String getQuickNavigateInfo(PsiElement element, PsiElement originalElement) {
+    public String getQuickNavigateInfo(final PsiElement element, final PsiElement originalElement) {
         if (jinjaRefPattern().accepts(originalElement)) {
             // Find all values of jinja var
-            List<PsiElement> properties = AnsibleUtil.findAllProperties(originalElement.getProject(), originalElement.getText());
-            StringBuilder result = new StringBuilder();
+            final List<PsiElement> properties = AnsibleUtil.findAllProperties(originalElement.getProject(), originalElement.getText());
+            final StringBuilder result = new StringBuilder();
 
-            for (PsiElement yamlKeyValue : properties) {
+            for (final PsiElement yamlKeyValue : properties) {
                 if (yamlKeyValue.getParent() instanceof YAMLKeyValue) {
-                    YAMLKeyValue keyValPair = (YAMLKeyValue) yamlKeyValue.getParent();
+                    final YAMLKeyValue keyValPair = (YAMLKeyValue) yamlKeyValue.getParent();
                     result.append(keyValPair.getValueText()).append("<br>");
                 }
             }
@@ -40,9 +37,9 @@ public class AnsibleVariableValuesDocumentationProvider extends AbstractDocument
 
         // Try documentation lookup for key
         if (psiElement(YAMLKeyValue.class).accepts(originalElement)) {
-            String url = MessageFormat.format("https://docs.ansible.com/ansible/" + ANSIBLE_VERSION + "/modules/{0}_module.html", ((YAMLKeyValue) originalElement).getKeyText());
+            final String url = MessageFormat.format("https://docs.ansible.com/ansible/" + ANSIBLE_VERSION + "/modules/{0}_module.html", ((YAMLKeyValue) originalElement).getKeyText());
             try {
-                String pageData = new Scanner(new URL(url).openStream(), "UTF-8").useDelimiter("\\A").next();
+                final String pageData = new Scanner(new URL(url).openStream(), "UTF-8").useDelimiter("\\A").next();
                 return pageData.substring(pageData.indexOf("<div role=\"main\" class=\"document\" itemscope=\"itemscope\" itemtype=\"http://schema.org/Article\">"));
             } catch (IOException e) {
                 return null;
@@ -52,7 +49,7 @@ public class AnsibleVariableValuesDocumentationProvider extends AbstractDocument
     }
 
     @Override
-    public String generateDoc(PsiElement element, @Nullable PsiElement originalElement) {
+    public String generateDoc(final PsiElement element, @Nullable final PsiElement originalElement) {
         return getQuickNavigateInfo(element, element);
     }
 }

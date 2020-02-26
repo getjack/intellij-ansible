@@ -8,7 +8,7 @@ import com.intellij.psi.PsiManager;
 
 public class YamlFileViewProviderFactory implements FileViewProviderFactory {
     @Override
-    public FileViewProvider createFileViewProvider(VirtualFile virtualFile, Language language, PsiManager psiManager, boolean physical) {
+    public FileViewProvider createFileViewProvider(final VirtualFile virtualFile, final Language language, final PsiManager psiManager, final boolean physical) {
         return new YamlFileViewProvider(psiManager, virtualFile, physical);
     }
 }

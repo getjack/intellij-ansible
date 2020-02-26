@@ -4,7 +4,7 @@ import com.intellij.lang.Language;
 import org.jetbrains.annotations.NotNull;
 
 public class YamlLanguage extends Language {
-	// singleton
+
 	public static final YamlLanguage INSTANCE = new YamlLanguage();
 	public static final String MIME_TYPE = "application/x-yaml";
 	public static final String MIME_TYPE2 = "application/yaml";

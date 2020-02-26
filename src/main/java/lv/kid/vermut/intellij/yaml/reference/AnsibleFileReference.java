@@ -11,9 +11,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Pavels.Veretennikovs on 2015.05.19..
- */
 public class AnsibleFileReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
     private String key;
 

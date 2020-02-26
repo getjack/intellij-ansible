@@ -21,14 +21,8 @@ public class NeonStructureViewFactory implements PsiStructureViewFactory {
 		return new TreeBasedStructureViewBuilder() {
 			@NotNull
 			@Override
-			public StructureViewModel createStructureViewModel(Editor editor) {
+			public StructureViewModel createStructureViewModel(final Editor editor) {
 				return new StructureViewModelBase(file, new NeonStructureViewElement(file));
-			}
-
-			@NotNull
-			public StructureViewModel createStructureViewModel() {
-				return new StructureViewModelBase(file, new NeonStructureViewElement(file));
-//				return new NeonStructureViewModel(file);
 			}
 		};
 	}

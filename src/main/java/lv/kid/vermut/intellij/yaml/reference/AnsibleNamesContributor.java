@@ -12,9 +12,6 @@ import org.jetbrains.yaml.psi.YAMLValue;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Pavels.Veretennikovs on 2015.05.18..
- */
 public class AnsibleNamesContributor implements ChooseByNameContributor {
 
     @NotNull

@@ -13,9 +13,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Complete keywords
- */
 public class ServiceCompletionProvider extends CompletionProvider<CompletionParameters> {
 	// current element
 	PsiElement curr;
@@ -25,12 +22,10 @@ public class ServiceCompletionProvider extends CompletionProvider<CompletionPara
 	}
 
 	@Override
-	protected void addCompletions(@NotNull CompletionParameters params,
-	                              ProcessingContext ctx,
-	                              @NotNull CompletionResultSet results) {
+	protected void addCompletions(@NotNull final CompletionParameters params, final ProcessingContext ctx, @NotNull final CompletionResultSet results) {
 		curr = params.getPosition().getOriginalElement();
 		if (curr.getParent() instanceof NeonReference) {
-			for (String service : getAvailableServices()) {
+			for (final String service : getAvailableServices()) {
 				results.addElement( LookupElementBuilder.create(service) );
 			}
 		}
@@ -41,31 +36,32 @@ public class ServiceCompletionProvider extends CompletionProvider<CompletionPara
 	 * Find all available services
 	 */
 	private List<String> getAvailableServices() {
-		List<String> services = new LinkedList<>();
+		final List<String> services = new LinkedList<>();
 
-		if (curr.getContainingFile() instanceof NeonFile) getServicesFromNeonFile(services, (NeonFile) curr.getContainingFile());
+		if (curr.getContainingFile() instanceof NeonFile) {
+			getServicesFromNeonFile(services, (NeonFile) curr.getContainingFile());
+		}
 
 		return services;
 	}
 
 
-	/**
-	 *
-	 */
-	private void getServicesFromNeonFile(List<String> result, NeonFile file) {
-		for(NeonSection section: file.getSections().values()) {
+	private void getServicesFromNeonFile(final List<String> result, final NeonFile file) {
+		for(final NeonSection section: file.getSections().values()) {
 			// without sections, i.e. the section is actually an extension
 			if (section.getName().equals("services") && (section.getValue() instanceof NeonArray)) addServiceFromNeonArray(result, (NeonArray) section.getValue());
 
 			if (section.getValue() instanceof NeonArray) {
-				HashMap<String,NeonValue> map = ((NeonArray) section.getValue()).getMap();
-				if (map.containsKey("services")) addServiceFromNeonArray(result, (NeonArray) map.get("services"));
+				final HashMap<String,NeonValue> map = ((NeonArray) section.getValue()).getMap();
+				if (map.containsKey("services")) {
+					addServiceFromNeonArray(result, (NeonArray) map.get("services"));
+				}
 			}
 		}
 	}
 
-	private void addServiceFromNeonArray(List<String> result, NeonArray hash) {
-		for (NeonKey key: hash.getKeys()) {
+	private void addServiceFromNeonArray(final List<String> result, final NeonArray hash) {
+		for (final NeonKey key: hash.getKeys()) {
 			result.add( key.getKeyText() );
 		}
 	}

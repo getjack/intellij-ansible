@@ -27,15 +27,15 @@ public class NeonFoldingBuilder implements FoldingBuilder, NeonTokenTypes
 	);
 
 	@NotNull
-	public FoldingDescriptor[] buildFoldRegions(@NotNull ASTNode astNode, @NotNull Document document) {
-		List<FoldingDescriptor> descriptors = new LinkedList<>();
+	public FoldingDescriptor[] buildFoldRegions(@NotNull final ASTNode astNode, @NotNull final Document document) {
+		final List<FoldingDescriptor> descriptors = new LinkedList<>();
 		collectDescriptors(astNode, descriptors);
 		return descriptors.toArray(new FoldingDescriptor[0]);
 	}
 
 	@Nullable
-	public String getPlaceholderText(@NotNull ASTNode node) {
-		IElementType type = node.getElementType();
+	public String getPlaceholderText(@NotNull final ASTNode node) {
+		final IElementType type = node.getElementType();
 		if (type == NeonElementTypes.KEY_VALUE_PAIR) {
 			return node.getFirstChildNode().getText();
 		}
@@ -50,12 +50,12 @@ public class NeonFoldingBuilder implements FoldingBuilder, NeonTokenTypes
 	}
 
 
-	private static void collectDescriptors(@NotNull ASTNode node, @NotNull List<FoldingDescriptor> descriptors) {
-		IElementType type = node.getElementType();
-		TextRange nodeTextRange = node.getTextRange();
+	private static void collectDescriptors(@NotNull ASTNode node, @NotNull final List<FoldingDescriptor> descriptors) {
+		final IElementType type = node.getElementType();
+		final TextRange nodeTextRange = node.getTextRange();
 		if ((!StringUtil.isEmptyOrSpaces(node.getText())) && (nodeTextRange.getLength() >= 2)) {
 			if (type == NeonElementTypes.KEY_VALUE_PAIR) {
-				ASTNode[] children = node.getChildren(COMPOUND_VALUE);
+				final ASTNode[] children = node.getChildren(COMPOUND_VALUE);
 
 				if ((children.length > 0) && (!StringUtil.isEmpty(children[0].getText().trim()))) {
 					descriptors.add(new FoldingDescriptor(node, nodeTextRange));
@@ -65,7 +65,7 @@ public class NeonFoldingBuilder implements FoldingBuilder, NeonTokenTypes
 				descriptors.add(new FoldingDescriptor(node, nodeTextRange));
 			}
 		}
-		for (ASTNode child : node.getChildren(null)) {
+		for (final ASTNode child : node.getChildren(null)) {
 			collectDescriptors(child, descriptors);
 		}
 	}

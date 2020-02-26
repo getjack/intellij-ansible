@@ -11,20 +11,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-/**
- * Provides code completion
- */
 public class NeonCompletionContributor extends CompletionContributor {
     public NeonCompletionContributor() {
         extend(CompletionType.BASIC, StandardPatterns.instanceOf(PsiElement.class), new ServiceCompletionProvider());
 
-        extend(CompletionType.BASIC,
-                AnsibleReferenceContributor.roleRefPattern(),
+        extend(CompletionType.BASIC, AnsibleReferenceContributor.roleRefPattern(),
                 new CompletionProvider<CompletionParameters>() {
                     @Override
                     protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result) {
-                        List<String> names = AnsibleUtil.findRoleNames(parameters.getPosition().getProject(), AnsibleUtil.ALL);
-                        for (String name : names) {
+                        final List<String> names = AnsibleUtil.findRoleNames(parameters.getPosition().getProject(), AnsibleUtil.ALL);
+                        for (final String name : names) {
                             result.addElement(LookupElementBuilder.create(name));
                         }
                     }

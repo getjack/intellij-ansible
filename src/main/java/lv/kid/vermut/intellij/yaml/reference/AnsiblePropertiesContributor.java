@@ -11,9 +11,6 @@ import org.jetbrains.yaml.psi.YAMLKeyValue;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Vermut on 16/05/2015.
- */
 public class AnsiblePropertiesContributor implements ChooseByNameContributor {
     @NotNull
     @Override

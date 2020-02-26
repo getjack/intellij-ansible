@@ -5,8 +5,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.ui.breadcrumbs.BreadcrumbsProvider;
 import lv.kid.vermut.intellij.yaml.YamlLanguage;
 import lv.kid.vermut.intellij.yaml.psi.NeonEntity;
-import lv.kid.vermut.intellij.yaml.psi.NeonKeyValPair;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.yaml.psi.YAMLKeyValue;
 
 /**
  * Breadcrumbs info about which section are we editing now (just above the editor, below tabs)
@@ -20,18 +20,18 @@ public class NeonBreadcrumbsInfoProvider implements BreadcrumbsProvider {
 	}
 
 	@Override
-	public boolean acceptElement(@NotNull PsiElement e) {
-		return (e instanceof NeonKeyValPair) || (e instanceof NeonEntity);
+	public boolean acceptElement(@NotNull final PsiElement e) {
+		return (e instanceof YAMLKeyValue) || (e instanceof NeonEntity);
 	}
 
 	@NotNull
 	@Override
-	public String getElementInfo(@NotNull PsiElement e) {
-		if (e instanceof NeonKeyValPair) {
-			return ((NeonKeyValPair) e).getKeyText();
+	public String getElementInfo(@NotNull final PsiElement e) {
+		if (e instanceof YAMLKeyValue) {
+			return ((YAMLKeyValue) e).getKeyText();
 
 		} else if (e instanceof NeonEntity) {
-			String name = ((NeonEntity) e).getName();
+			final String name = ((NeonEntity) e).getName();
 			return name != null ? name : "??";
 
 		} else {
@@ -40,7 +40,7 @@ public class NeonBreadcrumbsInfoProvider implements BreadcrumbsProvider {
 	}
 
 	@Override
-	public String getElementTooltip(@NotNull PsiElement e) {
+	public String getElementTooltip(@NotNull final PsiElement e) {
 		return e.toString();
 	}
 

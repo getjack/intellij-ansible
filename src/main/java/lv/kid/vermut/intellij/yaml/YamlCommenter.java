@@ -3,9 +3,6 @@ package lv.kid.vermut.intellij.yaml;
 import com.intellij.lang.Commenter;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Comment line/block
- */
 public class YamlCommenter implements Commenter {
 	@NotNull
 	@Override

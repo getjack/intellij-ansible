@@ -27,7 +27,7 @@
         ]]>
     </change-notes>
     <vendor url="https://github.com/getjackx/intellij-ansible" email="steamx@gmx.net">Kevin Kortum</vendor>
-    <idea-version since-build="141.713"/>
+    <idea-version since-build="193" until-build="193.*"/>
     <depends>org.jetbrains.plugins.yaml</depends>
 
     <!-- IDEA extensions -->

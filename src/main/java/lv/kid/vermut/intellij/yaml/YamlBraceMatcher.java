@@ -8,9 +8,6 @@ import lv.kid.vermut.intellij.yaml.lexer.NeonTokenTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Matches starting-closing braces in neon
- */
 public class YamlBraceMatcher implements PairedBraceMatcher, NeonTokenTypes {
 	private static final BracePair[] PAIRS = {
 			new BracePair(NEON_LBRACE_JINJA, NEON_RBRACE_JINJA, true), // {{ }}
@@ -24,12 +21,12 @@ public class YamlBraceMatcher implements PairedBraceMatcher, NeonTokenTypes {
 	}
 
 	@Override
-	public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType iElementType, @Nullable IElementType iElementType1) {
+	public boolean isPairedBracesAllowedBeforeType(@NotNull final IElementType iElementType, @Nullable final IElementType iElementType1) {
 		return true;
 	}
 
 	@Override
-	public int getCodeConstructStart(PsiFile psiFile, int openingBraceOffset) {
+	public int getCodeConstructStart(final PsiFile psiFile, final int openingBraceOffset) {
 		return openingBraceOffset;
 	}
 }

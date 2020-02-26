@@ -15,8 +15,8 @@ public class YamlLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSett
 {
 	public CommonCodeStyleSettings getDefaultCommonSettings()
 	{
-		CommonCodeStyleSettings defaultSettings = new CommonCodeStyleSettings(YamlLanguage.INSTANCE);
-		IndentOptions indentOptions = defaultSettings.initIndentOptions();
+		final CommonCodeStyleSettings defaultSettings = new CommonCodeStyleSettings(YamlLanguage.INSTANCE);
+		final IndentOptions indentOptions = defaultSettings.initIndentOptions();
 		indentOptions.INDENT_SIZE = 2;
 		indentOptions.TAB_SIZE = 2;
 		indentOptions.USE_TAB_CHARACTER = false;
@@ -35,7 +35,7 @@ public class YamlLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSett
 		return YamlLanguage.INSTANCE;
 	}
 
-	public String getCodeSample(@NotNull SettingsType settingsType) {
+	public String getCodeSample(@NotNull final SettingsType settingsType) {
 		return "product:\n  name: Yaml\n  version: 4\n  vendor: vermut@kid.lv\n  url: \"https://github.com/vermut/intellij-ansible/\"";
 	}
 }

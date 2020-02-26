@@ -84,7 +84,7 @@ public class NeonSyntaxHighlighter extends SyntaxHighlighterBase {
 
 	@NotNull
 	@Override
-	public TextAttributesKey[] getTokenHighlights(IElementType type) {
+	public TextAttributesKey[] getTokenHighlights(final IElementType type) {
 		return pack(ATTRIBUTES.get(type));
 	}
 }

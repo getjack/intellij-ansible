@@ -11,18 +11,15 @@ import lv.kid.vermut.intellij.yaml.YamlLanguage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- *
- */
 public class NeonCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     @Override
-    public AnsibleCodeStyleSettings createCustomSettings(CodeStyleSettings settings) {
+    public AnsibleCodeStyleSettings createCustomSettings(final CodeStyleSettings settings) {
         return new AnsibleCodeStyleSettings(settings);
     }
 
     @NotNull
     @Override
-    public Configurable createSettingsPage(CodeStyleSettings settings, CodeStyleSettings originalSetting) {
+    public Configurable createSettingsPage(final CodeStyleSettings settings, final CodeStyleSettings originalSetting) {
         return new CodeStyleAbstractConfigurable(settings, originalSetting, getConfigurableDisplayName()) {
             @Nullable
             @Override
@@ -31,20 +28,20 @@ public class NeonCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
             }
 
             @Override
-            protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
+            protected CodeStyleAbstractPanel createPanel(final CodeStyleSettings settings) {
                 return new SimpleCodeStyleMainPanel(getCurrentSettings(), settings);
             }
         };
     }
 
     private static class SimpleCodeStyleMainPanel extends TabbedLanguageCodeStylePanel {
-        public SimpleCodeStyleMainPanel(CodeStyleSettings currentSettings, CodeStyleSettings settings) {
+        public SimpleCodeStyleMainPanel(final CodeStyleSettings currentSettings, final CodeStyleSettings settings) {
             super(YamlLanguage.INSTANCE, currentSettings, settings);
         }
     }
 
     private class AnsibleCodeStyleSettings extends CustomCodeStyleSettings {
-        public AnsibleCodeStyleSettings(CodeStyleSettings settings) {
+        public AnsibleCodeStyleSettings(final CodeStyleSettings settings) {
             super("AnsibleCodeStyleSettings", settings);
         }
     }

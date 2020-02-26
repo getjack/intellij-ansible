@@ -8,26 +8,25 @@ import lv.kid.vermut.intellij.yaml.YamlIcons;
 import lv.kid.vermut.intellij.yaml.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.yaml.psi.YAMLKeyValue;
+import org.jetbrains.yaml.psi.YAMLValue;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- *
- */
 public class NeonStructureViewElement extends PsiTreeElementBase<PsiElement> {
 
-	public NeonStructureViewElement(PsiElement element) {
+	public NeonStructureViewElement(final PsiElement element) {
 		super(element);
 	}
 
 	@NotNull
 	@Override
 	public Collection<StructureViewTreeElement> getChildrenBase() {
-		List<StructureViewTreeElement> elements = new ArrayList<>();
-		PsiElement element = getElement();
+		final List<StructureViewTreeElement> elements = new ArrayList<>();
+		final PsiElement element = getElement();
 
 		if (element instanceof NeonFile) {
 			if (element.getChildren().length == 1 && element.getChildren()[0] instanceof NeonArray) { // top level array -> show it's elements
@@ -48,8 +47,8 @@ public class NeonStructureViewElement extends PsiTreeElementBase<PsiElement> {
 		return elements;
 	}
 
-	private void addArrayElements(List<StructureViewTreeElement> elements, PsiElement firstValue) {
-		for (PsiElement child : firstValue.getChildren()) {
+	private void addArrayElements(final List<StructureViewTreeElement> elements, final PsiElement firstValue) {
+		for (final PsiElement child : firstValue.getChildren()) {
 			elements.add(new NeonStructureViewElement(child));
 		}
 	}
@@ -57,20 +56,17 @@ public class NeonStructureViewElement extends PsiTreeElementBase<PsiElement> {
 	@Override
 	@Nullable
 	public String getPresentableText() {
-		PsiElement element = getElement();
+		final PsiElement element = getElement();
 		if (element instanceof NeonFile) {
 			return ((NeonFile) element).getName();
 
 		} else if (element instanceof NeonArray) {
 			return "array";
 
-		} else if (element instanceof NeonKeyValPair) {
-			return ((NeonKeyValPair) element).getKeyText();
+		} else if (element instanceof YAMLKeyValue) {
+			return ((YAMLKeyValue) element).getKeyText();
 
-		}  else if (element instanceof NeonKey) {
-			return ((NeonKey) element).getKeyText();
-
-		}  else if (element instanceof NeonValue) {
+		}  else if (element instanceof YAMLValue) {
 			return element.getText();
 
 		} else {
@@ -81,7 +77,7 @@ public class NeonStructureViewElement extends PsiTreeElementBase<PsiElement> {
 	@Override
 	@Nullable
 	public String getLocationString() {
-		PsiFile containingFile = getElement().getContainingFile();
+		final PsiFile containingFile = getElement().getContainingFile();
 
 		return "("
 				+ containingFile.getParent().getParent().getName() + "/"

@@ -10,13 +10,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Pavels.Veretennikovs on 2015.05.19..
- */
 public class AnsibleRoleReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
     private String key;
 
-    public AnsibleRoleReference(PsiElement element, TextRange rangeInElement) {
+    public AnsibleRoleReference(final PsiElement element, final TextRange rangeInElement) {
         super(element, rangeInElement);
         key = element.getText(); // .substring(rangeInElement.getStartOffset(), rangeInElement.getEndOffset());
 
@@ -27,11 +24,11 @@ public class AnsibleRoleReference extends PsiReferenceBase<PsiElement> implement
 
     @NotNull
     @Override
-    public ResolveResult[] multiResolve(boolean incompleteCode) {
-        Project project = myElement.getProject();
+    public ResolveResult[] multiResolve(final boolean incompleteCode) {
+        final Project project = myElement.getProject();
         final List<PsiFile> properties = AnsibleUtil.findRoles(project, key);
-        List<ResolveResult> results = new ArrayList<>();
-        for (PsiFile property : properties) {
+        final List<ResolveResult> results = new ArrayList<>();
+        for (final PsiFile property : properties) {
             results.add(new PsiElementResolveResult(property));
         }
         return results.toArray(new ResolveResult[0]);
@@ -40,14 +37,14 @@ public class AnsibleRoleReference extends PsiReferenceBase<PsiElement> implement
     @Nullable
     @Override
     public PsiElement resolve() {
-        ResolveResult[] resolveResults = multiResolve(false);
+        final ResolveResult[] resolveResults = multiResolve(false);
         return resolveResults.length == 1 ? resolveResults[0].getElement() : null;
     }
 
     @NotNull
     @Override
     public Object[] getVariants() {
-        Project project = myElement.getProject();
+        final Project project = myElement.getProject();
         return AnsibleUtil.findRoleNames(project, key + ".*").toArray();
     }
 }

@@ -12,13 +12,11 @@ import org.jetbrains.yaml.psi.YAMLKeyValue;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Created by Pavels.Veretennikovs on 2015.05.19..
- */
+
 public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
     private String key;
 
-    public AnsibleVariableReference(PsiElement element, TextRange rangeInElement) {
+    public AnsibleVariableReference(final PsiElement element, final TextRange rangeInElement) {
         super(element, rangeInElement);
         key = element.getText(); // .substring(rangeInElement.getStartOffset(), rangeInElement.getEndOffset());
     }
@@ -26,10 +24,10 @@ public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> imple
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
-        Project project = myElement.getProject();
+        final Project project = myElement.getProject();
         final List<PsiElement> properties = AnsibleUtil.findAllProperties(project, key);
-        List<ResolveResult> results = new ArrayList<>();
-        for (PsiElement property : properties) {
+        final List<ResolveResult> results = new ArrayList<>();
+        for (final PsiElement property : properties) {
             results.add(new PsiElementResolveResult(property));
         }
         return results.toArray(new ResolveResult[0]);
@@ -38,16 +36,16 @@ public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> imple
     @Nullable
     @Override
     public PsiElement resolve() {
-        ResolveResult[] resolveResults = multiResolve(false);
+        final ResolveResult[] resolveResults = multiResolve(false);
         return resolveResults.length == 1 ? resolveResults[0].getElement() : null;
     }
 
     @NotNull
     @Override
     public Object[] getVariants() {
-        Project project = myElement.getProject();
+        final Project project = myElement.getProject();
         final List<YAMLKeyValue> properties = AnsibleUtil.findAllProperties(project);
-        List<LookupElement> variants = new ArrayList<>();
+        final List<LookupElement> variants = new ArrayList<>();
         for (final YAMLKeyValue property : properties) {
             if (property.getKey() != null && property.getKeyText().length() > 0) {
                 variants.add(LookupElementBuilder.create(property).

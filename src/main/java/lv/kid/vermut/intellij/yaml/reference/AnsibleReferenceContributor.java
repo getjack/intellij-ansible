@@ -6,14 +6,15 @@ import com.intellij.patterns.PsiElementPattern;
 import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
 import lv.kid.vermut.intellij.yaml.YamlLanguage;
-import lv.kid.vermut.intellij.yaml.psi.*;
+import lv.kid.vermut.intellij.yaml.psi.NeonArray;
+import lv.kid.vermut.intellij.yaml.psi.NeonJinja;
+import lv.kid.vermut.intellij.yaml.psi.NeonReference;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.yaml.psi.YAMLKeyValue;
+import org.jetbrains.yaml.psi.YAMLScalar;
 
 import static com.intellij.patterns.PlatformPatterns.psiElement;
 
-/**
- * Created by Pavels.Veretennikovs on 2015.05.19..
- */
 public class AnsibleReferenceContributor extends PsiReferenceContributor {
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
@@ -66,18 +67,18 @@ public class AnsibleReferenceContributor extends PsiReferenceContributor {
     // { role: ROLE }         OR
     // roles:
     //   -- ROLE
-    public static PsiElementPattern.Capture<NeonScalar> roleRefPattern() {
-        return psiElement(NeonScalar.class)
+    public static PsiElementPattern.Capture<YAMLScalar> roleRefPattern() {
+        return psiElement(YAMLScalar.class)
                 .andOr(
-                        psiElement().afterSibling(PlatformPatterns.psiElement(NeonKey.class).withText("role")),
+                        psiElement().afterSibling(PlatformPatterns.psiElement(YAMLKeyValue.class).withText("role")),
                         psiElement().withSuperParent(2,
-                                PlatformPatterns.psiElement(NeonArray.class).afterSibling(psiElement(NeonKey.class).withText("roles"))))
+                                PlatformPatterns.psiElement(NeonArray.class).afterSibling(psiElement(YAMLKeyValue.class).withText("roles"))))
                 .withLanguage(YamlLanguage.INSTANCE);
     }
 
-    public static PsiElementPattern.Capture<NeonScalar> srcRefPattern() {
-        return psiElement(NeonScalar.class)
-                .afterSibling(psiElement(NeonKey.class).andOr(psiElement().withText("src"), psiElement().withText("include"), psiElement().withText("include_vars")))
+    public static PsiElementPattern.Capture<YAMLScalar> srcRefPattern() {
+        return psiElement(YAMLScalar.class)
+                .afterSibling(psiElement(YAMLKeyValue.class).andOr(psiElement().withText("src"), psiElement().withText("include"), psiElement().withText("include_vars")))
                 .withLanguage(YamlLanguage.INSTANCE);
     }
 }

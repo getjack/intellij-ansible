@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public class NeonSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
 	@NotNull
 	@Override
-	public SyntaxHighlighter getSyntaxHighlighter(Project project, VirtualFile virtualFile) {
+	public SyntaxHighlighter getSyntaxHighlighter(final Project project, final VirtualFile virtualFile) {
 		return new NeonSyntaxHighlighter();
 	}
 }
