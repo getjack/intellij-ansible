@@ -1,0 +1,29 @@
+package com.github.getjackx.intellij.plugins.ansible.editor;
+
+import com.intellij.ide.structureView.StructureViewBuilder;
+import com.intellij.ide.structureView.StructureViewModel;
+import com.intellij.ide.structureView.StructureViewModelBase;
+import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
+import com.intellij.lang.PsiStructureViewFactory;
+import com.intellij.openapi.editor.Editor;
+import com.intellij.psi.PsiFile;
+import com.github.getjackx.intellij.plugins.ansible.psi.NeonFile;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Structure view
+ */
+public class NeonStructureViewFactory implements PsiStructureViewFactory {
+    @Override
+    public StructureViewBuilder getStructureViewBuilder(final PsiFile file) {
+        if (!(file instanceof NeonFile)) return null;
+
+        return new TreeBasedStructureViewBuilder() {
+            @NotNull
+            @Override
+            public StructureViewModel createStructureViewModel(final Editor editor) {
+                return new StructureViewModelBase(file, new NeonStructureViewElement(file));
+            }
+        };
+    }
+}

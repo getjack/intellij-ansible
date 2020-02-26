@@ -9,7 +9,7 @@ plugins {
     id 'org.jetbrains.intellij' version '0.4.16'
 }
 
-group 'lv.kid.vermut.intellij'
+group 'com.github.getjackx.intellij.plugins'
 version = '0.10.0'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
