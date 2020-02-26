@@ -12,9 +12,6 @@ import lv.kid.vermut.intellij.yaml.psi.NeonValue;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
-/**
- *
- */
 public class NeonKeyValPairImpl extends NeonPsiElementImpl implements NeonKeyValPair {
     public NeonKeyValPairImpl(@NotNull ASTNode astNode) {
         super(astNode);

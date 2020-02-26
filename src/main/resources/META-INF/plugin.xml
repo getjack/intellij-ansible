@@ -32,7 +32,7 @@
 
     <!-- IDEA extensions -->
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="YAML_EX" extensions="yml;yaml" language="yamlEx" implementationClass="lv.kid.vermut.intellij.yaml.file.YamlFileType"/>
+        <fileType name="YAML_EX" patterns="main.yml;main.yaml" language="yamlEx" implementationClass="lv.kid.vermut.intellij.yaml.file.YamlFileType"/>
         <colorSettingsPage implementation="lv.kid.vermut.intellij.yaml.editor.NeonColorsPage"/>
         <lang.syntaxHighlighterFactory language="yamlEx" implementationClass="lv.kid.vermut.intellij.yaml.editor.NeonSyntaxHighlighterFactory"/>
         <lang.commenter language="yamlEx" implementationClass="lv.kid.vermut.intellij.yaml.YamlCommenter"/>

@@ -10,8 +10,7 @@ import javax.swing.*;
 
 public class YamlFileType extends LanguageFileType {
 	public static final YamlFileType INSTANCE = new YamlFileType();
-	public static final String DEFAULT_EXTENSION = "yml";
-	public static final String EXTENSIONS = "yml;yaml";
+	public static final String DEFAULT_EXTENSION = "main.yml";
 
 	protected YamlFileType() {
 		super(YamlLanguage.INSTANCE);

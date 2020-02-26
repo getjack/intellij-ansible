@@ -2,7 +2,7 @@ package lv.kid.vermut.intellij.yaml.editor;
 
 import com.intellij.lang.Language;
 import com.intellij.psi.PsiElement;
-import com.intellij.xml.breadcrumbs.BreadcrumbsInfoProvider;
+import com.intellij.ui.breadcrumbs.BreadcrumbsProvider;
 import lv.kid.vermut.intellij.yaml.YamlLanguage;
 import lv.kid.vermut.intellij.yaml.psi.NeonEntity;
 import lv.kid.vermut.intellij.yaml.psi.NeonKeyValPair;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Breadcrumbs info about which section are we editing now (just above the editor, below tabs)
  */
-public class NeonBreadcrumbsInfoProvider extends BreadcrumbsInfoProvider {
+public class NeonBreadcrumbsInfoProvider implements BreadcrumbsProvider {
 	private final Language[] ourLanguages = {YamlLanguage.INSTANCE};
 
 	@Override

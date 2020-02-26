@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Stack;
 
 /**
- * Neon parser, convert tokens (output from lexer) into syntax tree
+ * TODO: Expand existing YAML Parser to contain Jinja2
  */
-public class NeonParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
+public class AnsibleParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
     private enum IndentType {TABS, SPACES}
 
     private enum QuotesType {NONE, SINGLE, DOUBLE}
@@ -283,8 +283,6 @@ public class NeonParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
         key.done(KEY);
     }
 
-
-    /**  helpers ***/
 
     /**
      * Go to next token; if there is more whitespace, skip to the last

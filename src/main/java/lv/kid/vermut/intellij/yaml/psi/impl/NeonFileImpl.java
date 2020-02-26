@@ -11,16 +11,17 @@ import com.intellij.psi.tree.TokenSet;
 import lv.kid.vermut.intellij.yaml.YamlLanguage;
 import lv.kid.vermut.intellij.yaml.editor.NeonStructureViewElement;
 import lv.kid.vermut.intellij.yaml.file.YamlFileType;
-import lv.kid.vermut.intellij.yaml.parser.NeonElementTypes;
-import lv.kid.vermut.intellij.yaml.psi.NeonFile;
-import lv.kid.vermut.intellij.yaml.psi.NeonSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.yaml.YAMLElementTypes;
+import org.jetbrains.yaml.psi.YAMLDocument;
+import org.jetbrains.yaml.psi.YAMLFile;
 
 import javax.swing.*;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
-public class NeonFileImpl extends PsiFileBase implements NeonFile {
+public class NeonFileImpl extends PsiFileBase implements YAMLFile {
     public NeonFileImpl(FileViewProvider viewProvider) {
         super(viewProvider, YamlLanguage.INSTANCE);
     }
@@ -33,18 +34,7 @@ public class NeonFileImpl extends PsiFileBase implements NeonFile {
 
     @Override
     public String toString() {
-        return "NeonFile:" + getName();
-    }
-
-    public HashMap<String, NeonSection> getSections() {
-        HashMap<String, NeonSection> ret = new HashMap<>();
-
-        for (ASTNode node : getNode().getChildren(TokenSet.create(NeonElementTypes.KEY_VALUE_PAIR))) {
-            NeonSection section = (NeonSection) node.getPsi();
-            ret.put(section.getKeyText(), section);
-        }
-
-        return ret;
+        return "AnsibleFile:" + getName();
     }
 
     @NotNull
@@ -80,5 +70,14 @@ public class NeonFileImpl extends PsiFileBase implements NeonFile {
             };
         else
             return new NeonStructureViewElement(this);
+    }
+
+    @Override
+    public List<YAMLDocument> getDocuments() {
+        final ArrayList<YAMLDocument> result = new ArrayList<>();
+        for (ASTNode node : getNode().getChildren(TokenSet.create(YAMLElementTypes.DOCUMENT))) {
+            result.add((YAMLDocument) node.getPsi());
+        }
+        return result;
     }
 }

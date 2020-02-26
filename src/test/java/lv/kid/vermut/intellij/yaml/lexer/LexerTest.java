@@ -25,8 +25,6 @@ public class LexerTest extends UsefulTestCase {
         return new NeonLexer();
     }
 
-    /** helpers ***/
-
     /**
      * Test that lexing a given piece of code will give particular tokens
      *

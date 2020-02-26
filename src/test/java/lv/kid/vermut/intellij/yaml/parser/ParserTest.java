@@ -1,14 +1,14 @@
 package lv.kid.vermut.intellij.yaml.parser;
 
+import com.intellij.testFramework.HeavyPlatformTestCase;
 import com.intellij.testFramework.ParsingTestCase;
-import com.intellij.testFramework.PlatformTestCase;
 import org.junit.Assert;
 
 public class ParserTest extends ParsingTestCase {
 
     public ParserTest() {
         super("", "yml", new NeonParserDefinition());
-        PlatformTestCase.initPlatformLangPrefix();
+        HeavyPlatformTestCase.doAutodetectPlatformPrefix();
     }
 
     @Override

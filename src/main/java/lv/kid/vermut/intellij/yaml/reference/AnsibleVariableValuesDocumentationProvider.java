@@ -2,9 +2,8 @@ package lv.kid.vermut.intellij.yaml.reference;
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider;
 import com.intellij.psi.PsiElement;
-import lv.kid.vermut.intellij.yaml.psi.NeonKey;
-import lv.kid.vermut.intellij.yaml.psi.NeonKeyValPair;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.yaml.psi.YAMLKeyValue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,12 +25,12 @@ public class AnsibleVariableValuesDocumentationProvider extends AbstractDocument
     public String getQuickNavigateInfo(PsiElement element, PsiElement originalElement) {
         if (jinjaRefPattern().accepts(originalElement)) {
             // Find all values of jinja var
-            List<NeonKey> properties = AnsibleUtil.findAllProperties(originalElement.getProject(), originalElement.getText());
+            List<PsiElement> properties = AnsibleUtil.findAllProperties(originalElement.getProject(), originalElement.getText());
             StringBuilder result = new StringBuilder();
 
-            for (NeonKey neonKey : properties) {
-                if (neonKey.getParent() instanceof NeonKeyValPair) {
-                    NeonKeyValPair keyValPair = (NeonKeyValPair) neonKey.getParent();
+            for (PsiElement yamlKeyValue : properties) {
+                if (yamlKeyValue.getParent() instanceof YAMLKeyValue) {
+                    YAMLKeyValue keyValPair = (YAMLKeyValue) yamlKeyValue.getParent();
                     result.append(keyValPair.getValueText()).append("<br>");
                 }
             }
@@ -40,8 +39,8 @@ public class AnsibleVariableValuesDocumentationProvider extends AbstractDocument
         }
 
         // Try documentation lookup for key
-        if (psiElement(NeonKeyValPair.class).accepts(originalElement)) {
-            String url = MessageFormat.format("https://docs.ansible.com/ansible/" + ANSIBLE_VERSION + "/modules/{0}_module.html", ((NeonKeyValPair) originalElement).getKeyText());
+        if (psiElement(YAMLKeyValue.class).accepts(originalElement)) {
+            String url = MessageFormat.format("https://docs.ansible.com/ansible/" + ANSIBLE_VERSION + "/modules/{0}_module.html", ((YAMLKeyValue) originalElement).getKeyText());
             try {
                 String pageData = new Scanner(new URL(url).openStream(), "UTF-8").useDelimiter("\\A").next();
                 return pageData.substring(pageData.indexOf("<div role=\"main\" class=\"document\" itemscope=\"itemscope\" itemtype=\"http://schema.org/Article\">"));

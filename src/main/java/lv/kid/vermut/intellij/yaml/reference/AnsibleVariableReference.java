@@ -6,10 +6,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import lv.kid.vermut.intellij.yaml.YamlIcons;
-import lv.kid.vermut.intellij.yaml.psi.NeonKey;
-import lv.kid.vermut.intellij.yaml.psi.NeonKeyValPair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.yaml.psi.YAMLKeyValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +27,9 @@ public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> imple
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
         Project project = myElement.getProject();
-        final List<NeonKey> properties = AnsibleUtil.findAllProperties(project, key);
+        final List<PsiElement> properties = AnsibleUtil.findAllProperties(project, key);
         List<ResolveResult> results = new ArrayList<>();
-        for (NeonKey property : properties) {
+        for (PsiElement property : properties) {
             results.add(new PsiElementResolveResult(property));
         }
         return results.toArray(new ResolveResult[0]);
@@ -47,9 +46,9 @@ public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> imple
     @Override
     public Object[] getVariants() {
         Project project = myElement.getProject();
-        final List<NeonKeyValPair> properties = AnsibleUtil.findAllProperties(project);
+        final List<YAMLKeyValue> properties = AnsibleUtil.findAllProperties(project);
         List<LookupElement> variants = new ArrayList<>();
-        for (final NeonKeyValPair property : properties) {
+        for (final YAMLKeyValue property : properties) {
             if (property.getKey() != null && property.getKeyText().length() > 0) {
                 variants.add(LookupElementBuilder.create(property).
                         withIcon(YamlIcons.FILETYPE_ICON).

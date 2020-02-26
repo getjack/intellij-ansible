@@ -3,6 +3,7 @@ package lv.kid.vermut.intellij.yaml.reference;
 import com.intellij.openapi.fileTypes.FileTypes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FileTypeIndex;
@@ -10,10 +11,9 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.indexing.FileBasedIndex;
 import lv.kid.vermut.intellij.yaml.file.YamlFileType;
-import lv.kid.vermut.intellij.yaml.psi.NeonFile;
-import lv.kid.vermut.intellij.yaml.psi.NeonKey;
-import lv.kid.vermut.intellij.yaml.psi.NeonKeyValPair;
-import lv.kid.vermut.intellij.yaml.psi.NeonValue;
+import org.jetbrains.yaml.psi.YAMLFile;
+import org.jetbrains.yaml.psi.YAMLKeyValue;
+import org.jetbrains.yaml.psi.YAMLValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,28 +41,28 @@ public class AnsibleUtil {
         return findFiles(project, "/" + key + ".*/tasks/main.yml$");
     }
 
-    public static List<NeonKeyValPair> findAllProperties(Project project) {
+    public static List<YAMLKeyValue> findAllProperties(Project project) {
         return searchKeyPairs(project, null, null);
 
     }
 
-    public static List<NeonKey> findAllProperties(Project project, String key) {
-        List<NeonKeyValPair> names = searchKeyPairs(project, key, null);
-        List<NeonKey> result = new ArrayList<>();
-        for (NeonKeyValPair name : names) {
+    public static List<PsiElement> findAllProperties(Project project, String key) {
+        List<YAMLKeyValue> names = searchKeyPairs(project, key, null);
+        List<PsiElement> result = new ArrayList<>();
+        for (YAMLKeyValue name : names) {
             result.add(name.getKey());
         }
         return result;
     }
 
-    public static List<NeonKeyValPair> findNames(Project project) {
+    public static List<YAMLKeyValue> findNames(Project project) {
         return searchKeyPairs(project, "name", null);
     }
 
-    public static List<NeonValue> findNames(Project project, String key) {
-        List<NeonKeyValPair> names = searchKeyPairs(project, "name", key);
-        List<NeonValue> result = new ArrayList<>();
-        for (NeonKeyValPair name : names) {
+    public static List<YAMLValue> findNames(Project project, String key) {
+        List<YAMLKeyValue> names = searchKeyPairs(project, "name", key);
+        List<YAMLValue> result = new ArrayList<>();
+        for (YAMLKeyValue name : names) {
             result.add(name.getValue());
         }
         return result;
@@ -93,19 +93,19 @@ public class AnsibleUtil {
         return result;
     }
 
-    private static List<NeonKeyValPair> searchKeyPairs(Project project, String key, String value) {
-        List<NeonKeyValPair> result = new ArrayList<>();
+    private static List<YAMLKeyValue> searchKeyPairs(Project project, String key, String value) {
+        List<YAMLKeyValue> result = new ArrayList<>();
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME, YamlFileType.INSTANCE,
                 GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {
-            NeonFile yamlFile = (NeonFile) PsiManager.getInstance(project).findFile(virtualFile);
+            YAMLFile yamlFile = (YAMLFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (yamlFile != null) {
-                Collection<NeonKeyValPair> properties = PsiTreeUtil.findChildrenOfType(yamlFile, NeonKeyValPair.class);
+                Collection<YAMLKeyValue> properties = PsiTreeUtil.findChildrenOfType(yamlFile, YAMLKeyValue.class);
                 if (!properties.isEmpty()) {
                     if (key == null) {
                         result.addAll(properties);
                     } else {
-                        for (NeonKeyValPair property : properties) {
+                        for (YAMLKeyValue property : properties) {
                             if (key.equals(property.getKeyText())) {
                                 if (value == null)
                                     result.add(property);
