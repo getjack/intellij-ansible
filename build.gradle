@@ -1,5 +1,3 @@
-import org.gradle.internal.jvm.Jvm
-
 buildscript {
     repositories {
         mavenCentral()
@@ -13,8 +11,8 @@ plugins {
 
 group 'lv.kid.vermut.intellij'
 version = '0.10.0'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -37,6 +35,7 @@ intellij {
     type 'IC'
     updateSinceUntilBuild false
     plugins 'yaml'
+    downloadSources true
 }
 
 patchPluginXml {
