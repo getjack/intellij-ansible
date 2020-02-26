@@ -59,7 +59,7 @@ public class NeonFileImpl extends PsiFileBase implements YAMLFile {
                 public String getLocationString() {
                     return "(" + getParent().getParent().getParent().getParent().getName() + "/" +
                             getParent().getParent().getParent().getName()
-                             + ")";
+                            + ")";
                 }
 
                 @Nullable

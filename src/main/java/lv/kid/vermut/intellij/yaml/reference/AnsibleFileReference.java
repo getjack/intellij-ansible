@@ -18,7 +18,7 @@ public class AnsibleFileReference extends PsiReferenceBase<PsiElement> implement
         super(element, rangeInElement);
         key = element.getText(); // .substring(rangeInElement.getStartOffset(), rangeInElement.getEndOffset());
         // QUICK-HACK to fix the key containing linebreaks and comments - better would be to fix the parser/lexer
-        key = key.replaceAll("(?m)(#.*$|\\s*$)\\n","");
+        key = key.replaceAll("(?m)(#.*$|\\s*$)\\n", "");
     }
 
     @NotNull
@@ -42,17 +42,13 @@ public class AnsibleFileReference extends PsiReferenceBase<PsiElement> implement
 
     // HACK to return files in the same module as best match
     @Nullable
-    private PsiElement guessBestMatch(ResolveResult[] resolveResults)
-    {
+    private PsiElement guessBestMatch(ResolveResult[] resolveResults) {
         String parentPath = getElement().getContainingFile().getParent().getVirtualFile().getCanonicalPath();
         PsiElement bestMatch = null;
-        for (ResolveResult resolveResult : resolveResults)
-        {
-            if(resolveResult.getElement().getContainingFile().getVirtualFile().getCanonicalPath().startsWith(parentPath))
-            {
+        for (ResolveResult resolveResult : resolveResults) {
+            if (resolveResult.getElement().getContainingFile().getVirtualFile().getCanonicalPath().startsWith(parentPath)) {
                 // make sure we only return a bestMatch, if there is only one!
-                if (bestMatch != null)
-                {
+                if (bestMatch != null) {
                     bestMatch = null;
                     break;
                 }
@@ -71,7 +67,7 @@ public class AnsibleFileReference extends PsiReferenceBase<PsiElement> implement
         for (PsiFile property : properties) {
             variants.add(LookupElementBuilder.create(property).
                     withIcon(YamlIcons.FILETYPE_ICON).
-                            withTypeText(property.getContainingFile().getName())
+                    withTypeText(property.getContainingFile().getName())
             );
         }
         return variants.toArray();

@@ -16,6 +16,30 @@ import org.jetbrains.yaml.psi.YAMLScalar;
 import static com.intellij.patterns.PlatformPatterns.psiElement;
 
 public class AnsibleReferenceContributor extends PsiReferenceContributor {
+    public static PsiElementPattern.Capture<NeonReference> jinjaRefPattern() {
+        return psiElement(NeonReference.class)
+                .inside(NeonJinja.class)
+                .withLanguage(YamlLanguage.INSTANCE);
+    }
+
+    // { role: ROLE }         OR
+    // roles:
+    //   -- ROLE
+    public static PsiElementPattern.Capture<YAMLScalar> roleRefPattern() {
+        return psiElement(YAMLScalar.class)
+                .andOr(
+                        psiElement().afterSibling(PlatformPatterns.psiElement(YAMLKeyValue.class).withText("role")),
+                        psiElement().withSuperParent(2,
+                                PlatformPatterns.psiElement(NeonArray.class).afterSibling(psiElement(YAMLKeyValue.class).withText("roles"))))
+                .withLanguage(YamlLanguage.INSTANCE);
+    }
+
+    public static PsiElementPattern.Capture<YAMLScalar> srcRefPattern() {
+        return psiElement(YAMLScalar.class)
+                .afterSibling(psiElement(YAMLKeyValue.class).andOr(psiElement().withText("src"), psiElement().withText("include"), psiElement().withText("include_vars")))
+                .withLanguage(YamlLanguage.INSTANCE);
+    }
+
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
         registrar.registerReferenceProvider(jinjaRefPattern(),
@@ -56,29 +80,5 @@ public class AnsibleReferenceContributor extends PsiReferenceContributor {
                         return AnsibleVariableReference.EMPTY_ARRAY;
                     }
                 });
-    }
-
-    public static PsiElementPattern.Capture<NeonReference> jinjaRefPattern() {
-        return psiElement(NeonReference.class)
-                .inside(NeonJinja.class)
-                .withLanguage(YamlLanguage.INSTANCE);
-    }
-
-    // { role: ROLE }         OR
-    // roles:
-    //   -- ROLE
-    public static PsiElementPattern.Capture<YAMLScalar> roleRefPattern() {
-        return psiElement(YAMLScalar.class)
-                .andOr(
-                        psiElement().afterSibling(PlatformPatterns.psiElement(YAMLKeyValue.class).withText("role")),
-                        psiElement().withSuperParent(2,
-                                PlatformPatterns.psiElement(NeonArray.class).afterSibling(psiElement(YAMLKeyValue.class).withText("roles"))))
-                .withLanguage(YamlLanguage.INSTANCE);
-    }
-
-    public static PsiElementPattern.Capture<YAMLScalar> srcRefPattern() {
-        return psiElement(YAMLScalar.class)
-                .afterSibling(psiElement(YAMLKeyValue.class).andOr(psiElement().withText("src"), psiElement().withText("include"), psiElement().withText("include_vars")))
-                .withLanguage(YamlLanguage.INSTANCE);
     }
 }

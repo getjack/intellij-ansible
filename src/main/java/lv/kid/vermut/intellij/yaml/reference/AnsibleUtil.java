@@ -22,9 +22,8 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 public class AnsibleUtil {
-    private static final Logger log = Logger.getInstance(AnsibleUtil.class);
-
     public static final String ALL = ".*";
+    private static final Logger log = Logger.getInstance(AnsibleUtil.class);
 
     public static List<String> findRoleNames(final Project project, final String key) {
         final List<String> result = new ArrayList<>();

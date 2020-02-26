@@ -7,7 +7,8 @@ import com.intellij.psi.PsiNamedElement;
  * TODO: for future version
  */
 public interface NeonSection extends NeonKeyValPair, PsiNamedElement {
-	// for section inheritance
+    // for section inheritance
     NeonKey getParentSection();
-	String getParentSectionText();
+
+    String getParentSectionText();
 }

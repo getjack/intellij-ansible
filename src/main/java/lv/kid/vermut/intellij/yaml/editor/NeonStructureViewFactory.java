@@ -14,16 +14,16 @@ import org.jetbrains.annotations.NotNull;
  * Structure view
  */
 public class NeonStructureViewFactory implements PsiStructureViewFactory {
-	@Override
-	public StructureViewBuilder getStructureViewBuilder(final PsiFile file) {
-		if ( ! (file instanceof NeonFile)) return null;
+    @Override
+    public StructureViewBuilder getStructureViewBuilder(final PsiFile file) {
+        if (!(file instanceof NeonFile)) return null;
 
-		return new TreeBasedStructureViewBuilder() {
-			@NotNull
-			@Override
-			public StructureViewModel createStructureViewModel(final Editor editor) {
-				return new StructureViewModelBase(file, new NeonStructureViewElement(file));
-			}
-		};
-	}
+        return new TreeBasedStructureViewBuilder() {
+            @NotNull
+            @Override
+            public StructureViewModel createStructureViewModel(final Editor editor) {
+                return new StructureViewModelBase(file, new NeonStructureViewElement(file));
+            }
+        };
+    }
 }

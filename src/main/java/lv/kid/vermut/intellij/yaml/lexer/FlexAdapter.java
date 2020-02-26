@@ -25,88 +25,86 @@ import java.io.IOException;
 /**
  * neon flex has been broken by this commit:
  * https://github.com/JetBrains/intellij-community/commit/cb0e5b71e250c45bf0dcdc876461e12b4351b322
- *
+ * <p>
  * Copy-pasted previous working version as a hotfix
  *
  * @author max
  */
 public class FlexAdapter extends LexerBase {
-	private FlexLexer myFlex = null;
-	private IElementType myTokenType = null;
-	private CharSequence myText;
+    private FlexLexer myFlex = null;
+    private IElementType myTokenType = null;
+    private CharSequence myText;
 
-	private int myEnd;
-	private int myState;
+    private int myEnd;
+    private int myState;
 
-	public FlexAdapter(final FlexLexer flex) {
-		myFlex = flex;
-	}
+    public FlexAdapter(final FlexLexer flex) {
+        myFlex = flex;
+    }
 
-	public FlexLexer getFlex() {
-		return myFlex;
-	}
+    public FlexLexer getFlex() {
+        return myFlex;
+    }
 
-	@Override
-	public void start(@NotNull final CharSequence buffer, int startOffset, int endOffset, final int initialState) {
-		myText = buffer;
-		myEnd = endOffset;
-		myFlex.reset(myText, startOffset, endOffset, initialState);
-		myTokenType = null;
-	}
+    @Override
+    public void start(@NotNull final CharSequence buffer, int startOffset, int endOffset, final int initialState) {
+        myText = buffer;
+        myEnd = endOffset;
+        myFlex.reset(myText, startOffset, endOffset, initialState);
+        myTokenType = null;
+    }
 
-	@Override
-	public int getState() {
-		if (myTokenType == null) locateToken();
-		return myState;
-	}
+    @Override
+    public int getState() {
+        if (myTokenType == null) locateToken();
+        return myState;
+    }
 
-	@Override
-	public IElementType getTokenType() {
-		if (myTokenType == null) locateToken();
-		return myTokenType;
-	}
+    @Override
+    public IElementType getTokenType() {
+        if (myTokenType == null) locateToken();
+        return myTokenType;
+    }
 
-	@Override
-	public int getTokenStart() {
-		if (myTokenType == null) locateToken();
-		return myFlex.getTokenStart();
-	}
+    @Override
+    public int getTokenStart() {
+        if (myTokenType == null) locateToken();
+        return myFlex.getTokenStart();
+    }
 
-	@Override
-	public int getTokenEnd() {
-		if (myTokenType == null) locateToken();
-		return myFlex.getTokenEnd();
-	}
+    @Override
+    public int getTokenEnd() {
+        if (myTokenType == null) locateToken();
+        return myFlex.getTokenEnd();
+    }
 
-	@Override
-	public void advance() {
-		if (myTokenType == null) locateToken();
-		myTokenType = null;
-	}
+    @Override
+    public void advance() {
+        if (myTokenType == null) locateToken();
+        myTokenType = null;
+    }
 
-	@NotNull
-	@Override
-	public CharSequence getBufferSequence() {
-		return myText;
-	}
+    @NotNull
+    @Override
+    public CharSequence getBufferSequence() {
+        return myText;
+    }
 
-	@Override
-	public int getBufferEnd() {
-		return myEnd;
-	}
+    @Override
+    public int getBufferEnd() {
+        return myEnd;
+    }
 
-	protected void locateToken() {
-		if (myTokenType != null) return;
-		try {
-			myState = myFlex.yystate();
-			myTokenType = myFlex.advance();
-		}
-		catch (IOException e) { /*Can't happen*/ }
-		catch (Error e) {
-			// add lexer class name to the error
-			final Error error = new Error(myFlex.getClass().getName() + ": " + e.getMessage());
-			error.setStackTrace(e.getStackTrace());
-			throw error;
-		}
-	}
+    protected void locateToken() {
+        if (myTokenType != null) return;
+        try {
+            myState = myFlex.yystate();
+            myTokenType = myFlex.advance();
+        } catch (IOException e) { /*Can't happen*/ } catch (Error e) {
+            // add lexer class name to the error
+            final Error error = new Error(myFlex.getClass().getName() + ": " + e.getMessage());
+            error.setStackTrace(e.getStackTrace());
+            throw error;
+        }
+    }
 }

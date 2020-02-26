@@ -34,6 +34,11 @@ public class NeonCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
         };
     }
 
+    @Override
+    public String getConfigurableDisplayName() {
+        return YamlLanguage.INSTANCE.getDisplayName();
+    }
+
     private static class SimpleCodeStyleMainPanel extends TabbedLanguageCodeStylePanel {
         public SimpleCodeStyleMainPanel(final CodeStyleSettings currentSettings, final CodeStyleSettings settings) {
             super(YamlLanguage.INSTANCE, currentSettings, settings);
@@ -44,11 +49,6 @@ public class NeonCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
         public AnsibleCodeStyleSettings(final CodeStyleSettings settings) {
             super("AnsibleCodeStyleSettings", settings);
         }
-    }
-
-    @Override
-    public String getConfigurableDisplayName() {
-        return YamlLanguage.INSTANCE.getDisplayName();
     }
 }
 

@@ -14,10 +14,6 @@ import java.util.Stack;
  * TODO: Expand existing YAML Parser to contain Jinja2
  */
 public class AnsibleParser implements PsiParser, NeonTokenTypes, NeonElementTypes {
-    private enum IndentType {TABS, SPACES}
-
-    private enum QuotesType {NONE, SINGLE, DOUBLE}
-
     private PsiBuilder myBuilder;
     private boolean eolSeen = false;
     private int myIndent;
@@ -26,7 +22,6 @@ public class AnsibleParser implements PsiParser, NeonTokenTypes, NeonElementType
     private int myInline;
     private Stack<IElementType> expectedClosings = new Stack<>();
     private IndentType myIndentType;
-
 
     @NotNull
     @Override
@@ -283,7 +278,6 @@ public class AnsibleParser implements PsiParser, NeonTokenTypes, NeonElementType
         key.done(KEY);
     }
 
-
     /**
      * Go to next token; if there is more whitespace, skip to the last
      */
@@ -377,4 +371,8 @@ public class AnsibleParser implements PsiParser, NeonTokenTypes, NeonElementType
             advanceLexer();
         }
     }
+
+    private enum IndentType {TABS, SPACES}
+
+    private enum QuotesType {NONE, SINGLE, DOUBLE}
 }

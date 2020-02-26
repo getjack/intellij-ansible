@@ -11,12 +11,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class YamlFileViewProvider extends SingleRootFileViewProvider {
 
-	public YamlFileViewProvider(@NotNull final PsiManager psiManager, @NotNull final VirtualFile virtualFile, boolean b) {
-		super(psiManager, virtualFile, b);
-	}
+    public YamlFileViewProvider(@NotNull final PsiManager psiManager, @NotNull final VirtualFile virtualFile, boolean b) {
+        super(psiManager, virtualFile, b);
+    }
 
-	@Override
-	public boolean supportsIncrementalReparse(@NotNull final Language language) {
-		return false;
-	}
+    @Override
+    public boolean supportsIncrementalReparse(@NotNull final Language language) {
+        return false;
+    }
 }

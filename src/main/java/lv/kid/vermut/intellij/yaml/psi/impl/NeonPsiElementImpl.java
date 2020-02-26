@@ -17,8 +17,7 @@ public class NeonPsiElementImpl extends ASTWrapperPsiElement implements Navigata
 
     @NotNull
     @Override
-    public PsiReference[] getReferences()
-    {
+    public PsiReference[] getReferences() {
         return ReferenceProvidersRegistry.getReferencesFromProviders(this);
     }
 }

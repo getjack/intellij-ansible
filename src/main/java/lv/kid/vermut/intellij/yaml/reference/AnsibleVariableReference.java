@@ -50,7 +50,7 @@ public class AnsibleVariableReference extends PsiReferenceBase<PsiElement> imple
             if (property.getKey() != null && property.getKeyText().length() > 0) {
                 variants.add(LookupElementBuilder.create(property).
                         withIcon(YamlIcons.FILETYPE_ICON).
-                                withTypeText(property.getContainingFile().getName())
+                        withTypeText(property.getContainingFile().getName())
                 );
             }
         }

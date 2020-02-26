@@ -6,11 +6,11 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class NeonTokenType extends IElementType {
-	public NeonTokenType(@NotNull String debugName) {
-		super(debugName, YamlLanguage.INSTANCE);
-	}
+    public NeonTokenType(@NotNull String debugName) {
+        super(debugName, YamlLanguage.INSTANCE);
+    }
 
-	public String toString() {
-		return "[Yaml] " + super.toString();
-	}
+    public String toString() {
+        return "[Yaml] " + super.toString();
+    }
 }

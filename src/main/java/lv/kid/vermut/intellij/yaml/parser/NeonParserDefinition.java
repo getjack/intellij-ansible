@@ -18,56 +18,56 @@ import org.jetbrains.yaml.lexer.YAMLFlexLexer;
 import org.jetbrains.yaml.parser.YAMLParser;
 
 public class NeonParserDefinition implements ParserDefinition {
-	private static final TokenSet myCommentTokens = TokenSet.create(YAMLTokenTypes.COMMENT);
+    private static final TokenSet myCommentTokens = TokenSet.create(YAMLTokenTypes.COMMENT);
 
-	@NotNull
-	@Override
-	public Lexer createLexer(Project project) {
-		return new YAMLFlexLexer();
-	}
+    @NotNull
+    @Override
+    public Lexer createLexer(Project project) {
+        return new YAMLFlexLexer();
+    }
 
-	@Override
-	public PsiParser createParser(Project project) {
-		return new YAMLParser();
-	}
+    @Override
+    public PsiParser createParser(Project project) {
+        return new YAMLParser();
+    }
 
-	@Override
-	public IFileElementType getFileNodeType() {
-		return NeonElementTypes.FILE;
-	}
+    @Override
+    public IFileElementType getFileNodeType() {
+        return NeonElementTypes.FILE;
+    }
 
-	@Override
-	@NotNull
-	public TokenSet getWhitespaceTokens() {
-		return TokenSet.create(YAMLTokenTypes.WHITESPACE);
-	}
+    @Override
+    @NotNull
+    public TokenSet getWhitespaceTokens() {
+        return TokenSet.create(YAMLTokenTypes.WHITESPACE);
+    }
 
-	@Override
-	@NotNull
-	public TokenSet getCommentTokens() {
-		return myCommentTokens;
-	}
+    @Override
+    @NotNull
+    public TokenSet getCommentTokens() {
+        return myCommentTokens;
+    }
 
-	@Override
-	@NotNull
-	public TokenSet getStringLiteralElements() {
-		return TokenSet.create(YAMLTokenTypes.SCALAR_STRING, YAMLTokenTypes.SCALAR_DSTRING, YAMLTokenTypes.TEXT);
-	}
+    @Override
+    @NotNull
+    public TokenSet getStringLiteralElements() {
+        return TokenSet.create(YAMLTokenTypes.SCALAR_STRING, YAMLTokenTypes.SCALAR_DSTRING, YAMLTokenTypes.TEXT);
+    }
 
-	@NotNull
-	@Override
-	public PsiElement createElement(final ASTNode node) {
-		final YAMLParserDefinition yamlParserDefinition = new YAMLParserDefinition();
-		return yamlParserDefinition.createElement(node);
-	}
+    @NotNull
+    @Override
+    public PsiElement createElement(final ASTNode node) {
+        final YAMLParserDefinition yamlParserDefinition = new YAMLParserDefinition();
+        return yamlParserDefinition.createElement(node);
+    }
 
-	@Override
-	public PsiFile createFile(final FileViewProvider viewProvider) {
-		return new NeonFileImpl(viewProvider);
-	}
+    @Override
+    public PsiFile createFile(final FileViewProvider viewProvider) {
+        return new NeonFileImpl(viewProvider);
+    }
 
-	@Override
-	public SpaceRequirements spaceExistenceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
-		return SpaceRequirements.MAY;
-	}
+    @Override
+    public SpaceRequirements spaceExistenceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
+        return SpaceRequirements.MAY;
+    }
 }
